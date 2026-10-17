@@ -445,6 +445,133 @@
       .copy-button { transition: none; }
     }
   </style>
+  <style>
+
+    /* ============ 玻璃拟态升级（glassmorphism upgrade） ============ */
+    /* 背景极光：柔光团 */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(520px 520px at 12% 8%, rgba(220, 89, 63, .16), transparent 65%),
+        radial-gradient(620px 620px at 88% 18%, rgba(215, 227, 94, .14), transparent 65%),
+        radial-gradient(560px 560px at 78% 82%, rgba(220, 89, 63, .12), transparent 65%),
+        radial-gradient(500px 500px at 18% 88%, rgba(120, 170, 255, .12), transparent 65%);
+      animation: aurora-drift 22s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes aurora-drift {
+      from { transform: translate3d(-2%, -1%, 0) scale(1); }
+      to { transform: translate3d(2%, 2%, 0) scale(1.06); }
+    }
+    @media (prefers-color-scheme: dark) {
+      body::before {
+        background:
+          radial-gradient(560px 560px at 12% 8%, rgba(255, 118, 89, .20), transparent 65%),
+          radial-gradient(640px 640px at 88% 18%, rgba(217, 228, 95, .13), transparent 65%),
+          radial-gradient(600px 600px at 78% 82%, rgba(150, 110, 255, .16), transparent 65%),
+          radial-gradient(520px 520px at 18% 88%, rgba(90, 140, 255, .14), transparent 65%);
+      }
+    }
+
+    /* 毛玻璃卡片：作品、fact、step、hero-note、contact */
+    .project, .fact, .step, .hero-note, .contact {
+      background: rgba(255, 255, 255, .55);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+      backdrop-filter: blur(18px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, .55);
+      box-shadow: 0 18px 50px rgba(29, 31, 27, .10), inset 0 1px 0 rgba(255, 255, 255, .6);
+    }
+    @media (prefers-color-scheme: dark) {
+      .project, .fact, .step, .hero-note, .contact {
+        background: rgba(28, 33, 30, .52);
+        border: 1px solid rgba(255, 255, 255, .14);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, .38), inset 0 1px 0 rgba(255, 255, 255, .10);
+      }
+    }
+    .project { border-radius: var(--radius-lg); padding: clamp(22px, 3.4vw, 40px); transition: transform .45s cubic-bezier(.22,.61,.36,1), box-shadow .45s ease; }
+    .project:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 30px 80px rgba(220, 89, 63, .18), inset 0 1px 0 rgba(255, 255, 255, .6);
+    }
+    @media (prefers-color-scheme: dark) {
+      .project:hover { box-shadow: 0 30px 90px rgba(255, 118, 89, .22), inset 0 1px 0 rgba(255, 255, 255, .12); }
+    }
+    .fact, .step { border-radius: var(--radius-md); transition: transform .4s cubic-bezier(.22,.61,.36,1), box-shadow .4s ease; }
+    .fact:hover, .step:hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(220, 89, 63, .16); }
+
+    /* 视频框：玻璃描边 + 悬停柔光 */
+    .visual video {
+      border-radius: calc(var(--radius-md) - 4px);
+      border: 1px solid rgba(255, 255, 255, .5);
+      box-shadow: 0 14px 40px rgba(29, 31, 27, .16);
+      transition: transform .5s cubic-bezier(.22,.61,.36,1), box-shadow .5s ease;
+    }
+    .project:hover .visual video {
+      transform: scale(1.015);
+      box-shadow: 0 18px 60px rgba(220, 89, 63, .28);
+      border-color: rgba(220, 89, 63, .45);
+    }
+
+    /* 标签：玻璃小药丸 */
+    .tag {
+      background: rgba(255, 255, 255, .5);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, .55);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), 0 4px 14px rgba(29,31,27,.08);
+      transition: transform .3s ease, box-shadow .3s ease, background .3s ease;
+    }
+    .tag:hover { transform: translateY(-2px); background: rgba(255,255,255,.75); box-shadow: 0 8px 22px rgba(220,89,63,.22); }
+    @media (prefers-color-scheme: dark) {
+      .tag { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.16); }
+      .tag:hover { background: rgba(255,255,255,.16); }
+    }
+
+    /* 联系按钮：流光 */
+    .copy-button {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--accent), #f08a4b);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.4);
+      box-shadow: 0 12px 34px rgba(220, 89, 63, .42), inset 0 1px 0 rgba(255,255,255,.45);
+      transition: transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s ease;
+    }
+    .copy-button::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -80%;
+      width: 55%; height: 100%;
+      background: linear-gradient(105deg, transparent, rgba(255,255,255,.55), transparent);
+      transform: skewX(-20deg);
+      transition: left .6s ease;
+    }
+    .copy-button:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 18px 48px rgba(220, 89, 63, .55), inset 0 1px 0 rgba(255,255,255,.5); }
+    .copy-button:hover::after { left: 130%; }
+    .copy-button:active { transform: translateY(0) scale(.99); }
+
+    /* 入场：hero 逐行浮现 */
+    @keyframes rise-in { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+    .hero .kicker { animation: rise-in .7s cubic-bezier(.22,.61,.36,1) both; }
+    .hero h1 { animation: rise-in .8s .12s cubic-bezier(.22,.61,.36,1) both; }
+    .hero .intro { animation: rise-in .8s .24s cubic-bezier(.22,.61,.36,1) both; }
+    .hero .facts .fact:nth-child(1) { animation: rise-in .7s .34s cubic-bezier(.22,.61,.36,1) both; }
+    .hero .facts .fact:nth-child(2) { animation: rise-in .7s .44s cubic-bezier(.22,.61,.36,1) both; }
+    .hero .facts .fact:nth-child(3) { animation: rise-in .7s .54s cubic-bezier(.22,.61,.36,1) both; }
+    .hero-note { animation: rise-in .8s .4s cubic-bezier(.22,.61,.36,1) both; }
+
+    /* 滚动显现 */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .75s ease, transform .75s cubic-bezier(.22,.61,.36,1); }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .hero .kicker, .hero h1, .hero .intro, .hero .fact, .hero-note { animation: none; opacity: 1; transform: none; transition: none; }
+      body::before { animation: none; }
+    }
+    ::selection { background: var(--accent); color: #fff; }
+  </style>
 </head>
 <body>
   <main class="page">
@@ -611,6 +738,22 @@
         }
       });
     }());
+  </script>
+  <script>
+    (function () {
+      var els = document.querySelectorAll('.project, .process-wrap, .about, .contact, .section-head');
+      els.forEach(function (el, i) { el.classList.add('reveal'); el.style.transitionDelay = (i % 4) * 90 + 'ms'; });
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      els.forEach(function (el) { io.observe(el); });
+    })();
   </script>
 </body>
 </html>
