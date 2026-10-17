@@ -621,6 +621,37 @@
       .hero h1.split .ch { animation: none; opacity: 1; transform: none; }
     }
   </style>
+
+  <style>
+    .facts { grid-template-columns: repeat(2, 1fr); }
+    .fact-solo {
+      background: rgba(255, 255, 255, .55);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+      backdrop-filter: blur(18px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, .55);
+      box-shadow: 0 18px 50px rgba(29, 31, 27, .10), inset 0 1px 0 rgba(255, 255, 255, .6);
+      border-radius: var(--radius-md);
+      margin-top: 14px;
+      padding: 16px 22px;
+      display: flex; align-items: center; gap: 20px;
+      transition: transform .4s cubic-bezier(.22,.61,.36,1), box-shadow .4s ease;
+      animation: rise-in .7s .64s cubic-bezier(.22,.61,.36,1) both;
+    }
+    .fact-solo:hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(0, 113, 227, .20); }
+    .fact-solo b { font-size: 36px; font-weight: 700; color: var(--accent); line-height: 1; }
+    .fact-solo .solo-text span { display: block; font-weight: 700; font-size: 15px; }
+    .fact-solo .solo-text small { color: var(--muted); font-size: 13px; }
+    @media (prefers-color-scheme: dark) {
+      .fact-solo {
+        background: rgba(28, 33, 30, .52);
+        border: 1px solid rgba(255, 255, 255, .14);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, .38), inset 0 1px 0 rgba(255, 255, 255, .10);
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fact-solo { animation: none; }
+    }
+  </style>
 </head>
 <body>
   <main class="page">
@@ -630,9 +661,12 @@
         <h1 id="intro-title">把概念，剪成<em>可播放</em>的影像。</h1>
         <p class="intro">从创意构思、分镜设计、AI 生成到后期剪辑，独立完成完整视频。正在寻找 AIGC 视频制作实习机会。</p>
         <div class="facts" aria-label="作品集概览">
-          <div class="fact"><b>02</b><span>精选成片</span></div>
-          <div class="fact"><b>100%</b><span>独立完成</span></div>
+          <div class="fact"><b>03</b><span>精选成片</span></div>
           <div class="fact"><b>MiniMax H3</b><span>核心生成工具</span></div>
+        </div>
+        <div class="fact-solo" aria-label="独立完成">
+          <b>100%</b>
+          <div class="solo-text"><span>独立完成</span><small>三件作品从创意到成片，全流程独立制作</small></div>
         </div>
       </div>
       <aside class="hero-note">
@@ -852,7 +886,7 @@
         var done = false;
         var run = function () {
           if (done) return; done = true;
-          facts.querySelectorAll('.fact b').forEach(countUp);
+          document.querySelectorAll('.facts .fact b, .fact-solo b').forEach(countUp);
         };
         if ('IntersectionObserver' in window) {
           var io = new IntersectionObserver(function (es) {
