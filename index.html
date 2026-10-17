@@ -17,8 +17,8 @@
       --ink: #151816;
       --muted: #5f655f;
       --line: #d2d4ce;
-      --accent: #dc593f;
-      --accent-soft: #f1c2b5;
+      --accent: #0071e3;
+      --accent-soft: #cfe6ff;
       --acid: #d7e35e;
       --deep: #1f2722;
       --shadow: 0 22px 70px rgba(29, 31, 27, .12);
@@ -33,8 +33,8 @@
         --ink: #f4f2eb;
         --muted: #b6bcb5;
         --line: #343b36;
-        --accent: #ff7659;
-        --accent-soft: #6a342a;
+        --accent: #2997ff;
+        --accent-soft: #143a5e;
         --acid: #d9e45f;
         --deep: #080a09;
         --shadow: 0 26px 80px rgba(0, 0, 0, .34);
@@ -48,7 +48,7 @@
       min-width: 0;
       background: var(--bg);
       color: var(--ink);
-      font-family: "DM Sans", "Noto Sans SC", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "DM Sans", "Noto Sans SC", sans-serif;
       line-height: 1.55;
       text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
@@ -455,9 +455,9 @@
       inset: 0;
       z-index: -1;
       background:
-        radial-gradient(520px 520px at 12% 8%, rgba(220, 89, 63, .16), transparent 65%),
-        radial-gradient(620px 620px at 88% 18%, rgba(215, 227, 94, .14), transparent 65%),
-        radial-gradient(560px 560px at 78% 82%, rgba(220, 89, 63, .12), transparent 65%),
+        radial-gradient(520px 520px at 12% 8%, rgba(0, 113, 227, .16), transparent 65%),
+        radial-gradient(620px 620px at 88% 18%, rgba(94, 200, 255, .13), transparent 65%),
+        radial-gradient(560px 560px at 78% 82%, rgba(0, 113, 227, .12), transparent 65%),
         radial-gradient(500px 500px at 18% 88%, rgba(120, 170, 255, .12), transparent 65%);
       animation: aurora-drift 22s ease-in-out infinite alternate;
       pointer-events: none;
@@ -469,8 +469,8 @@
     @media (prefers-color-scheme: dark) {
       body::before {
         background:
-          radial-gradient(560px 560px at 12% 8%, rgba(255, 118, 89, .20), transparent 65%),
-          radial-gradient(640px 640px at 88% 18%, rgba(217, 228, 95, .13), transparent 65%),
+          radial-gradient(560px 560px at 12% 8%, rgba(41, 151, 255, .20), transparent 65%),
+          radial-gradient(640px 640px at 88% 18%, rgba(94, 200, 255, .12), transparent 65%),
           radial-gradient(600px 600px at 78% 82%, rgba(150, 110, 255, .16), transparent 65%),
           radial-gradient(520px 520px at 18% 88%, rgba(90, 140, 255, .14), transparent 65%);
       }
@@ -494,13 +494,13 @@
     .project { border-radius: var(--radius-lg); padding: clamp(22px, 3.4vw, 40px); transition: transform .45s cubic-bezier(.22,.61,.36,1), box-shadow .45s ease; }
     .project:hover {
       transform: translateY(-6px);
-      box-shadow: 0 30px 80px rgba(220, 89, 63, .18), inset 0 1px 0 rgba(255, 255, 255, .6);
+      box-shadow: 0 30px 80px rgba(0, 113, 227, .18), inset 0 1px 0 rgba(255, 255, 255, .6);
     }
     @media (prefers-color-scheme: dark) {
-      .project:hover { box-shadow: 0 30px 90px rgba(255, 118, 89, .22), inset 0 1px 0 rgba(255, 255, 255, .12); }
+      .project:hover { box-shadow: 0 30px 90px rgba(41, 151, 255, .22), inset 0 1px 0 rgba(255, 255, 255, .12); }
     }
     .fact, .step { border-radius: var(--radius-md); transition: transform .4s cubic-bezier(.22,.61,.36,1), box-shadow .4s ease; }
-    .fact:hover, .step:hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(220, 89, 63, .16); }
+    .fact:hover, .step:hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(0, 113, 227, .16); }
 
     /* 视频框：玻璃描边 + 悬停柔光 */
     .visual video {
@@ -511,8 +511,8 @@
     }
     .project:hover .visual video {
       transform: scale(1.015);
-      box-shadow: 0 18px 60px rgba(220, 89, 63, .28);
-      border-color: rgba(220, 89, 63, .45);
+      box-shadow: 0 18px 60px rgba(0, 113, 227, .28);
+      border-color: rgba(0, 113, 227, .45);
     }
 
     /* 标签：玻璃小药丸 */
@@ -524,7 +524,7 @@
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), 0 4px 14px rgba(29,31,27,.08);
       transition: transform .3s ease, box-shadow .3s ease, background .3s ease;
     }
-    .tag:hover { transform: translateY(-2px); background: rgba(255,255,255,.75); box-shadow: 0 8px 22px rgba(220,89,63,.22); }
+    .tag:hover { transform: translateY(-2px); background: rgba(255,255,255,.75); box-shadow: 0 8px 22px rgba(0,113,227,.22); }
     @media (prefers-color-scheme: dark) {
       .tag { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.16); }
       .tag:hover { background: rgba(255,255,255,.16); }
@@ -534,10 +534,10 @@
     .copy-button {
       position: relative;
       overflow: hidden;
-      background: linear-gradient(135deg, var(--accent), #f08a4b);
+      background: linear-gradient(135deg, var(--accent), #5eb2ff);
       color: #fff;
       border: 1px solid rgba(255,255,255,.4);
-      box-shadow: 0 12px 34px rgba(220, 89, 63, .42), inset 0 1px 0 rgba(255,255,255,.45);
+      box-shadow: 0 12px 34px rgba(0, 113, 227, .42), inset 0 1px 0 rgba(255,255,255,.45);
       transition: transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s ease;
     }
     .copy-button::after {
@@ -549,7 +549,7 @@
       transform: skewX(-20deg);
       transition: left .6s ease;
     }
-    .copy-button:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 18px 48px rgba(220, 89, 63, .55), inset 0 1px 0 rgba(255,255,255,.5); }
+    .copy-button:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 18px 48px rgba(0, 113, 227, .55), inset 0 1px 0 rgba(255,255,255,.5); }
     .copy-button:hover::after { left: 130%; }
     .copy-button:active { transform: translateY(0) scale(.99); }
 
