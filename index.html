@@ -577,6 +577,19 @@
     /* facts 容器去灰底：玻璃卡片独立悬浮 */
     .facts { background: transparent; border: none; gap: 14px; }
   </style>
+
+  <style>
+    /* hero-note / contact：补圆角与内边距，与玻璃卡片统一 */
+    .hero-note, .contact {
+      border-radius: var(--radius-md);
+      padding: clamp(22px, 3.4vw, 34px);
+    }
+    .hero-note { border-top: 1px solid rgba(255, 255, 255, .55); }
+    @media (prefers-color-scheme: dark) {
+      .hero-note { border-top: 1px solid rgba(255, 255, 255, .14); }
+    }
+    .contact { display: grid; gap: 18px; }
+  </style>
 </head>
 <body>
   <main class="page">
