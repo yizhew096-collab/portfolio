@@ -590,6 +590,17 @@
     }
     .contact { display: grid; gap: 18px; }
   </style>
+
+  <style>
+    /* 对比度修复：玻璃底上的文字颜色 */
+    .contact { color: var(--ink); }
+    .process-wrap .step { color: #1c201d; }
+    .process-wrap .step p { color: #5f655f; }
+    @media (prefers-color-scheme: dark) {
+      .process-wrap .step { color: #f7f5ef; }
+      .process-wrap .step p { color: #aeb5af; }
+    }
+  </style>
 </head>
 <body>
   <main class="page">
