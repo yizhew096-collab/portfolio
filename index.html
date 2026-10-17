@@ -601,6 +601,26 @@
       .process-wrap .step p { color: #aeb5af; }
     }
   </style>
+
+  <style>
+    /* 1) 标题逐字入场 */
+    .hero h1.split { animation: none; }
+    .hero h1.split .ch {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(.55em);
+      animation: ch-in .55s cubic-bezier(.22,.61,.36,1) forwards;
+      will-change: transform, opacity;
+    }
+    @keyframes ch-in { to { opacity: 1; transform: none; } }
+    /* 3) 3D 倾斜由 JS 直写 transform，这里只保证桌面端过渡手感 */
+    @media (hover: hover) and (pointer: fine) {
+      .project { transform-style: preserve-3d; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero h1.split .ch { animation: none; opacity: 1; transform: none; }
+    }
+  </style>
 </head>
 <body>
   <main class="page">
@@ -782,6 +802,83 @@
         });
       }, { threshold: 0.12 });
       els.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* 1) 标题逐字入场 */
+      var h1 = document.getElementById('intro-title');
+      if (h1 && !reduced) {
+        (function split(el) {
+          Array.prototype.slice.call(el.childNodes).forEach(function (n) {
+            if (n.nodeType === 3) {
+              var frag = document.createDocumentFragment();
+              n.textContent.split('').forEach(function (ch) {
+                var s = document.createElement('span');
+                s.className = 'ch';
+                s.textContent = ch;
+                frag.appendChild(s);
+              });
+              el.replaceChild(frag, n);
+            } else if (n.nodeType === 1) { split(n); }
+          });
+        })(h1);
+        h1.classList.add('split');
+        Array.prototype.forEach.call(h1.querySelectorAll('.ch'), function (s, i) {
+          s.style.animationDelay = (150 + i * 45) + 'ms';
+        });
+      }
+
+      /* 2) 数字滚动 */
+      function countUp(b) {
+        var m = b.textContent.match(/^(\d+)(.*)$/);
+        if (!m || reduced) return;
+        var target = parseInt(m[1], 10), suffix = m[2], pad = m[1].length;
+        var t0 = null, dur = 1300;
+        function frame(t) {
+          if (!t0) t0 = t;
+          var p = Math.min((t - t0) / dur, 1);
+          var e = 1 - Math.pow(1 - p, 3);
+          b.textContent = String(Math.round(target * e)).padStart(pad, '0') + suffix;
+          if (p < 1) requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+      }
+      var facts = document.querySelector('.facts');
+      if (facts) {
+        var done = false;
+        var run = function () {
+          if (done) return; done = true;
+          facts.querySelectorAll('.fact b').forEach(countUp);
+        };
+        if ('IntersectionObserver' in window) {
+          var io = new IntersectionObserver(function (es) {
+            es.forEach(function (e) { if (e.isIntersecting) { run(); io.disconnect(); } });
+          }, { threshold: 0.3 });
+          io.observe(facts);
+        } else { window.setTimeout(run, 800); }
+      }
+
+      /* 3) 3D 倾斜卡片（仅桌面端） */
+      if (!reduced && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        document.querySelectorAll('.project').forEach(function (card) {
+          card.addEventListener('mousemove', function (e) {
+            var r = card.getBoundingClientRect();
+            var px = (e.clientX - r.left) / r.width - 0.5;
+            var py = (e.clientY - r.top) / r.height - 0.5;
+            card.style.transition = 'transform .12s ease-out';
+            card.style.transform = 'perspective(1000px) rotateX(' + (-py * 7).toFixed(2) +
+              'deg) rotateY(' + (px * 9).toFixed(2) + 'deg) translateY(-4px)';
+          });
+          card.addEventListener('mouseleave', function () {
+            card.style.transition = '';
+            card.style.transform = '';
+          });
+        });
+      }
     })();
   </script>
 </body>
